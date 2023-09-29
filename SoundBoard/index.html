@@ -48,7 +48,7 @@
 
 <body>
     <div id="app"></div>
-<audio src="/sounds/Soundboard_sounds_bubbles.mp3"></audio>
+<audio src="../sounds/Soundboard_sounds_bubbles.mp3"></audio>
     <script>
         // model
 
@@ -57,19 +57,19 @@
         function updateView() {
             document.getElementById('app').innerHTML = /*HTML*/`
             <div class="one" onclick="play('bubbles')">
-                <audio id="bubbles" class="sound" src="/sounds/Soundboard_sounds_bubbles.mp3"></audio>
+                <audio id="bubbles" class="sound" src="../sounds/Soundboard_sounds_bubbles.mp3"></audio>
             </div>
 
             <div class="two" onclick="play('clay')">
-                <audio id="clay" class="sound" src="/sounds/Soundboard_sounds_clay.mp3" ></audio>
+                <audio id="clay" class="sound" src="../sounds/Soundboard_sounds_clay.mp3" ></audio>
             </div> 
 
             <div class="three" onclick="play('confetti')">
-                <audio id="confetti" class="sound" src="/sounds/Soundboard_sounds_confetti.mp3"></audio>
+                <audio id="confetti" class="sound" src="../sounds/Soundboard_sounds_confetti.mp3"></audio>
             </div>  
 
             <div class="four" onclick="play('glimmer')">
-                <audio id="glimmer" class="sound" src="/sounds/Soundboard_sounds_glimmer.mp3"></audio>
+                <audio id="glimmer" class="sound" src="../sounds/Soundboard_sounds_glimmer.mp3"></audio>
             </div> 
 
             <div class="five" onclick="play('moon')">
@@ -77,7 +77,7 @@
             </div>  
                   
             <div class="six" onclick="play('ufo')">
-               <audio id="ufo" class="sound" src="/sounds/Soundboard_sounds_ufo.mp3"></audio>
+               <audio id="ufo" class="sound" src="../sounds/Soundboard_sounds_ufo.mp3"></audio>
             </div>        
             `;
         }
