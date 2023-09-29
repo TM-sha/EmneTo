@@ -41,24 +41,24 @@
 <body>
     <div class="characterSelected">
         <div class="flex">selected character</div>
-        <img class="smallImg" onclick="chooseCharacter('Mario')" src="/bilder/mario.png" alt="mario">
-        <img class="smallImg" onclick="chooseCharacter('Luigi')" src="/bilder/luigi.png" alt="luigi">
-        <img class="smallImg" onclick="chooseCharacter('Peach')" src="/bilder/peach.png" alt="peach">
-        <img class="smallImg" onclick="chooseCharacter('Yoshi')" src="/bilder/yoshi.png" alt="yoshi">
+        <img class="smallImg" onclick="chooseCharacter('Mario')" src="/Img/mario.png" alt="mario">
+        <img class="smallImg" onclick="chooseCharacter('Luigi')" src="/Img/luigi.png" alt="luigi">
+        <img class="smallImg" onclick="chooseCharacter('Peach')" src="/Img/peach.png" alt="peach">
+        <img class="smallImg" onclick="chooseCharacter('Yoshi')" src="/Img/yoshi.png" alt="yoshi">
     </div>
 
     <div class="flex">
-        <img class="img" src="/bilder/bowser.png" alt="bowser">
+        <img class="img" src="/Img/bowser.png" alt="bowser">
         <div id="bowserHp">300 HP</div>
         <button class="btn" id="bowser" onclick="attackOpponent(this)">Attack</button>
-        <img class="img" onclick="regenBowser()" src="/bilder/bwsmush.png" alt="bowsermush">
+        <img class="img" onclick="regenBowser()" src="/Img/bwsmush.png" alt="bowsermush">
     </div>
     
     <div class="flex">
-        <img class="img" id="selectedCharacter" src="/bilder/mario.png">
+        <img class="img" id="selectedCharacter" src="/Img/mario.png">
         <div id="characterHp">200 HP</div>
         <button class="btn" id="character" onclick="attackOpponent(this)">Attack Bowser</button>
-        <img class="img" onclick="regenCharacter()" src="/bilder/toad.png" alt="toad">
+        <img class="img" onclick="regenCharacter()" src="/Img/toad.png" alt="toad">
     </div>
 
     <script>
@@ -68,7 +68,7 @@
 
         function chooseCharacter(playerName) {
             document.getElementById("bowser").innerHTML = "Attack " + playerName;
-            document.getElementById("selectedCharacter").src = "/bilder/" + playerName + '.png';
+            document.getElementById("selectedCharacter").src = "/Img/" + playerName + '.png';
             player = playerName;
             regenCharacter();
         }
