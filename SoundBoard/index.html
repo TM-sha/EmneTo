@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            display: grid;
+            grid-template-columns: 1fr 1px;
+            height: 150px;
+            width: 150px;
+            margin: 1px;
+        }
+
+        .one {
+            background-color: blueviolet;
+            border: 5px solid chocolate;
+        }
+
+        .two {
+            background-color: chocolate;
+            border: 5px solid blueviolet;
+        }
+
+        .three {
+            background-color: green;
+            border: 5px solid palevioletred;
+        }
+
+        .four {
+            background-color: palevioletred;
+            border: 5px solid green;
+        }
+
+        .five {
+            background-color: gold;
+            border: 5px solid blue;
+        }
+
+        .six {
+            background-color: blue;
+            border: 5px solid yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+<audio src="/sounds/Soundboard_sounds_bubbles.mp3"></audio>
+    <script>
+        // model
+
+        // view
+        updateView();
+        function updateView() {
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <div class="one" onclick="play('bubbles')">
+                <audio id="bubbles" class="sound" src="/sounds/Soundboard_sounds_bubbles.mp3"></audio>
+            </div>
+
+            <div class="two" onclick="play('clay')">
+                <audio id="clay" class="sound" src="/sounds/Soundboard_sounds_clay.mp3" ></audio>
+            </div> 
+
+            <div class="three" onclick="play('confetti')">
+                <audio id="confetti" class="sound" src="/sounds/Soundboard_sounds_confetti.mp3"></audio>
+            </div>  
+
+            <div class="four" onclick="play('glimmer')">
+                <audio id="glimmer" class="sound" src="/sounds/Soundboard_sounds_glimmer.mp3"></audio>
+            </div> 
+
+            <div class="five" onclick="play('moon')">
+               <audio id="moon" class="sound" src="/sounds/Soundboard_sounds_moon.mp3"></audio>
+            </div>  
+                  
+            <div class="six" onclick="play('ufo')">
+               <audio id="ufo" class="sound" src="/sounds/Soundboard_sounds_ufo.mp3"></audio>
+            </div>        
+            `;
+        }
+
+        // controller
+        function play(selectedSound) {
+            document.getElementById(selectedSound).play();
+        }
+    </script>
+</body>
+
+</html>
