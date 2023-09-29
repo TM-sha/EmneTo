@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mario - game</title>
+    <style>
+.img {
+    height: 300px;
+    width: 200px;
+    margin: 30px;
+}
+
+.smallImg {
+    height: 200px;
+    width: 150px;
+    margin: 5px;
+}
+
+.flex {
+    display: flex;
+    align-items: flex-start;
+}
+
+.btn {
+    width: 70px;
+    margin-left: 50px;
+}
+
+.characterSelected {
+    border: 3px solid black;
+    width: 652px;
+    background-color: black;
+}
+
+    </style>
+
+</head>
+
+<body>
+    <div class="characterSelected">
+        <div class="flex">selected character</div>
+        <img class="smallImg" onclick="chooseCharacter('Mario')" src="/bilder/mario.png" alt="mario">
+        <img class="smallImg" onclick="chooseCharacter('Luigi')" src="/bilder/luigi.png" alt="luigi">
+        <img class="smallImg" onclick="chooseCharacter('Peach')" src="/bilder/peach.png" alt="peach">
+        <img class="smallImg" onclick="chooseCharacter('Yoshi')" src="/bilder/yoshi.png" alt="yoshi">
+    </div>
+
+    <div class="flex">
+        <img class="img" src="/bilder/bowser.png" alt="bowser">
+        <div id="bowserHp">300 HP</div>
+        <button class="btn" id="bowser" onclick="attackOpponent(this)">Attack</button>
+        <img class="img" onclick="regenBowser()" src="/bilder/bwsmush.png" alt="bowsermush">
+    </div>
+    
+    <div class="flex">
+        <img class="img" id="selectedCharacter" src="/bilder/mario.png">
+        <div id="characterHp">200 HP</div>
+        <button class="btn" id="character" onclick="attackOpponent(this)">Attack Bowser</button>
+        <img class="img" onclick="regenCharacter()" src="/bilder/toad.png" alt="toad">
+    </div>
+
+    <script>
+        let bowserHp = 300;
+        let characterHp = 0;
+        let player = 'mario';
+
+        function chooseCharacter(playerName) {
+            document.getElementById("bowser").innerHTML = "Attack " + playerName;
+            document.getElementById("selectedCharacter").src = "/bilder/" + playerName + '.png';
+            player = playerName;
+            regenCharacter();
+        }
+
+        function regenBowser() {
+            bowserHp = 300;
+            document.getElementById("bowserHp").innerHTML = bowserHp + ' HP';
+        }
+
+        function regenCharacter() {
+            if (player === 'Mario') {
+                characterHp = 200;
+            }
+            else if (player === 'Luigi') {
+                characterHp = 140;
+            }
+            else if (player === 'Peach') {
+                characterHp = 100;
+            }
+            else if (player === 'Yoshi') {
+                characterHp = 80;
+            }
+            else {
+                characterHp = 80;
+            }
+            document.getElementById("characterHp").innerHTML = characterHp + ' HP';
+        }
+
+        function attackOpponent(element) {
+            if (element.id === 'character') {
+                characterAttack();
+            }
+            else {
+                bowserAttacks(player);
+            }
+        }
+
+        function characterAttack() {
+            if (bowserHp == 0) {
+                alert('Du har vunnet!!');
+                return;
+            }
+            bowserHp -= 10;
+            document.getElementById("bowserHp").innerHTML = bowserHp + ' HP';
+        }
+
+        function bowserAttacks(playerName) {
+            if (characterHp == 0) {
+                alert('Du tapte');
+                return;
+            }
+            characterHp -= 20;
+            document.getElementById("characterHp").innerHTML = characterHp + ' HP';
+        }
+    </script>
+</body>
+
+</html>
