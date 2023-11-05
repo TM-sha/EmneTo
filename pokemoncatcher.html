@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokèmon Catcher</title>
+    <style>
+        .game {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100dvh;
+            align-items: center;
+        }
+
+        .game>div {
+            margin: 1rem;
+            font-size: 17px;
+        }
+
+        .pokemon {
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            align-items: center;
+            height: fit-content;
+            width: 10rem;
+            background-color: rgba(83, 168, 83, 0.79);
+            color: rgb(52, 15, 86);
+            border: 1.5px solid rgb(0, 0, 0);
+            border-radius: 10px;
+            padding: 0.5rem;
+            box-shadow: 0px 4px 10px 2px rgba(40, 40, 40, 0.651);
+        }
+
+        .listItems {
+            display: flex;
+            align-items: center;
+            font-size: large;
+            padding: 0.5rem;
+        }
+
+        .buttonBtn {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .buttonBtn:hover {
+            color: white;
+            background-color: rgb(186, 39, 39);
+            border: 1px solid black;
+        }
+
+        .inventory {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 10rem;
+            color: rgb(12, 40, 12);
+            font-weight: bolder;
+            border-radius: 15px;
+            width: 10rem;
+            font-size: larger;
+            overflow: auto; /*Hvis innholdet er større enn høyden så lages det en scroll*/
+        }
+
+        .inventory::-webkit-scrollbar {
+            display: none; /*Fjerner scrollbarsliden*/
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+
+    <script>
+        // model
+        let pokemonList = ['Bulbasaur', 'Oranguru', 'Drowzee', 'Pikachu'];
+        let open = false;
+        let inventory = '';
+        let pokemons = '';
+        let capturedPokemon = []; //Tom liste - fanger man en pokemon så pushes den inn her, og så legges den til i inventory linje 82
+        let isDisabled = '';            //
+        let isButtonBtn = 'buttonBtn'; //Styling på knappene ('røm' og 'fang') når inventory er åpen => disabled
+        let previousNumber = 0;
+
+        // view
+        updateView();
+        function updateView() {
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <div class="game">
+                <h2>Pokèmon Catcher</h2>
+                <div>
+                    <button class="buttonBtn" onclick="goToInventory()">Inventory</button>
+                    <button class="${isButtonBtn}" ${isDisabled} onclick="escapePokemon()">Røm</button>
+                    <button class="${isButtonBtn}" ${isDisabled} onclick="capturePokemon()">Fang</button>
+                </div> 
+                <div class="pokemon">
+                    ${hideOrShow()}
+                </div>
+            </div>          
+            `;
+        }
+
+        // controller
+        function hideOrShow() { //når inventory er åpen så forsvinner pokemon, ellers vis pokemon
+            let hideOrShow;
+            if (open == true) {
+                hideOrShow = `<div class="inventory">${inventory}</div>`
+            } else {
+                hideOrShow = `<img src="Pokemon/Images/${pokemons}.png" width="100" height="120"/>` //<img src="Pokemon/Images/${pokemon}.png"/>
+            }
+            return hideOrShow;
+        }
+
+        function goToInventory() {
+            inventory = /*HTML*/`
+                Du har fanget:
+                ${updatedInventory()}
+                `;
+            open = !open;
+            if (open == true) {
+                isDisabled = 'disabled';
+                isButtonBtn = '';
+            } else {
+                isDisabled = '';
+                isButtonBtn = 'buttonBtn';
+            }
+            updateView();
+        }
+
+        function updatedInventory() {
+            let inventoryList = '';
+            for (let pokèmon of capturedPokemon) {
+                inventoryList += `<div class="listItems"><img src="Pokemon/Images/${pokèmon}.png" width="50" height="60"/> &nbsp ${pokèmon}</div>`;
+            }
+            return inventoryList;
+        }
+
+        getRandomPokemon();
+        function getRandomPokemon() {
+            let randomPokemon = Math.floor(Math.random() * 4);
+            if (previousNumber == randomPokemon) {
+                getRandomPokemon();
+            } else {
+                previousNumber = randomPokemon;
+                pokemons = pokemonList[randomPokemon];
+                updateView();
+            }
+        }
+
+        function escapePokemon() {
+            getRandomPokemon();
+        }
+
+        function capturePokemon() {
+            capturedPokemon.push(pokemons);
+            getRandomPokemon();
+        }
+    </script>
+</body>
+
+</html>

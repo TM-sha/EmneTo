@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        // model
+        let answer = '';
+        let sporsmalOgSvar = {
+            "Hva er din favorittfarge?": "Min favorittfarge er blå.",
+            "Hva heter du?": "Jeg er en datamaskin, så jeg har ikke et navn.",
+            "Hva liker du å gjøre på fritiden?": "Jeg liker å hjelpe uvitende, som deg.",
+            "Hvor gammel er du?": "Jeg har ingen alder, jeg er en datamaskin.",
+            "Hvordan har du det?": "Jeg er en datamaskin, men jeg har det veldig fint, takk.",
+        };
+
+        // view
+        updateView();
+        function updateView() {
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <h2>Spør chatboten:</h2>
+            <input type="text" id="sporsmalInput" placeholder="Skriv inn ditt spørsmål her..">
+            <button onclick="stillSporsmal()">Still spørsmål</button>
+            <h2>Chatbot:</h2>
+            <div>${answer}</div>
+            `;
+        }
+
+        //function visSvar(svar) {
+        //let svarDiv = document.getElementById("svarDiv");
+        //svarDiv.innerHTML = "Svar: " + svar;
+        
+
+        function visSvar(svar) {
+            answer = "Chatboten skriver...";
+            updateView();
+
+            setTimeout(function () {
+                answer = "Svar: " + svar;
+                updateView();
+            }, 2000);
+        }
+
+        // controller
+        function stillSporsmal() {
+            const sporsmal = document.getElementById("sporsmalInput").value;
+            let svar = hentSvar(sporsmal);
+            visSvar(svar);
+        }
+
+        function hentSvar(sporsmal) {
+            if (sporsmal in sporsmalOgSvar) {
+                return sporsmalOgSvar[sporsmal];
+            } else {
+                return "Beklager, jeg vet ikke svaret på dette spørsmålet.";
+            }
+        }
+
+    </script>
+</body>
+
+</html>

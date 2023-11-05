@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endre dukken</title>
+</head>
+
+<body onload="updateView()">
+    <div id="app"></div>
+
+    <script>
+        //Model
+        let bodyParts = {
+            head: {
+                images: ["head1.png", "head2.png", "head3.png", "head4.png"],
+                index: 0,
+            },
+            body: {
+                images: ["body1.png", "body2.png", "body3.png", "body4.png"],
+                index: 0,
+            },      
+            legs: {
+                images: ["legs1.png", "legs2.png", "legs3.png", "legs4.png"],
+                index: 0,
+            }
+        };
+
+        //View
+        function updateView(){
+            let app = document.getElementById("app");
+            let html = /*HTML*/`
+                <div id="heads">
+                    <button onclick="changeBodyPart('--', 'head')">◀</button>
+                    <img src="bilder/${bodyParts.head.images[bodyParts.head.index]}" alt="">
+                    <button onclick="changeBodyPart('++', 'head')">▶</button>
+                </div>
+
+                <div id="body">
+                    <button onclick="changeBodyPart('--', 'body')">◀</button>
+                    <img src="bilder/${bodyParts.body.images[bodyParts.body.index]}" alt="">
+                    <button onclick="changeBodyPart('++', 'body')">▶</button>
+                </div>
+
+                <div id="legs">
+                    <button onclick="changeBodyPart('--', 'legs')">◀</button>
+                    <img src="bilder/${bodyParts.legs.images[bodyParts.legs.index]}" alt="">
+                    <button onclick="changeBodyPart('++', 'legs')">▶</button>
+                </div>
+            `;
+
+            app.innerHTML = html;
+        }
+
+        //Controller
+        function changeBodyPart(direction, bodyPart) {
+            let imageArray = bodyParts[bodyPart].images;
+            let imageIndex = bodyParts[bodyPart].index;
+            
+            if (direction == "++") {
+                imageIndex = (((imageIndex + 1) % imageArray.length) + imageArray.length) % imageArray.length;
+                //if (imageIndex + 1 > imageArray.length) {
+                //    imageIndex = 0;
+                //}
+                //else {
+                //    imageIndex++;
+                //}
+            }
+                
+            else if (direction == "--"){
+                imageIndex = (((imageIndex - 1) % imageArray.length) + imageArray.length) % imageArray.length;
+                //if (imageIndex - 1 < 0) {
+                //    imageIndex = imageArray.length;
+                //}
+                //else {
+                //    imageIndex--;
+                //}
+            }
+            
+            if (bodyPart == "head"){
+                bodyParts.head.index = imageIndex;
+            }
+            else if (bodyPart == "body"){
+                bodyParts.body.index = imageIndex;
+            }
+            else if (bodyPart == "legs"){
+                bodyParts.legs.index = imageIndex;
+            }
+
+            updateView();
+        }    
+    </script>
+</body>
+
+</html>

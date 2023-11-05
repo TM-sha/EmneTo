@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endre dukken</title>
+</head>
+
+<body>
+    <div id="heads">
+        <button onclick="changeHead1()">◀</button>
+        <img src="bilder/head1.png" alt="">
+        <button onclick="changeHead3()">▶</button>
+    </div>
+
+    <div id="body">
+        <button onclick="changeBody1()">◀</button>
+        <img src="bilder/body1.png" alt="">
+        <button onclick="changeBody3()">▶</button>
+    </div>
+
+    <div id="legs">
+        <button onclick="changeLeg1()">◀</button>
+        <img src="bilder/legs1.png" alt="">
+        <button onclick="changeLeg3()">▶</button>
+    </div>
+
+
+    <script>
+        const heads = document.getElementById("heads");
+        const body = document.getElementById("body");
+        const legs = document.getElementById("legs");
+        //Hoder-------------------------------------------------------------------------------------------------------------------
+        function changeHead1() {
+            heads.innerHTML = `
+        <button onclick="changeHead2()">◀</button><img src="bilder/head4.png" alt=""><button onclick="changeHead4()">▶</button>`;
+        }
+
+        function changeHead2() {
+            heads.innerHTML = `
+        <button onclick="changeHead3()">◀</button><img src="bilder/head3.png" alt=""><button onclick="changeHead1()">▶</button>`;
+        }
+
+        function changeHead3() {
+            heads.innerHTML = `
+        <button onclick="changeHead4()">◀</button><img src="bilder/head2.png" alt=""><button onclick="changeHead2()">▶</button>`;
+        }
+
+        function changeHead4() {
+            heads.innerHTML = `
+        <button onclick="changeHead1()">◀</button><img src="bilder/head1.png" alt=""><button onclick="changeHead3()">▶</button>`;
+        }
+
+        //Kropper-----------------------------------------------------------------------------------------------------------------
+        function changeBody1() {
+            body.innerHTML = `
+        <button onclick="changeBody2()">◀</button><img src="bilder/body4.png" alt=""><button onclick="changeBody4()">▶</button>`;
+        }
+
+        function changeBody2() {
+            body.innerHTML = `
+        <button onclick="changeBody3()">◀</button><img src="bilder/body3.png" alt=""><button onclick="changeBody1()">▶</button>`;
+        }
+
+        function changeBody3() {
+            body.innerHTML = `
+        <button onclick="changeBody4()">◀</button><img src="bilder/body2.png" alt=""><button onclick="changeBody2()">▶</button>`;
+        }
+
+        function changeBody4() {
+            body.innerHTML = `
+        <button onclick="changeBody1()">◀</button><img src="bilder/body1.png" alt=""><button onclick="changeBody3()">▶</button>`;
+        }
+
+        //Bein--------------------------------------------------------------------------------------------------------------------
+        function changeLeg1() {
+            legs.innerHTML = `
+        <button onclick="changeLeg2()">◀</button><img src="bilder/legs4.png" alt=""><button onclick="changeLeg4()">▶</button>`;
+        }
+
+        function changeLeg2() {
+            legs.innerHTML = `
+        <button onclick="changeLeg3()">◀</button><img src="bilder/legs3.png" alt=""><button onclick="changeLeg1()">▶</button>`;
+        }
+
+        function changeLeg3() {
+            legs.innerHTML = `
+        <button onclick="changeLeg4()">◀</button><img src="bilder/legs2.png" alt=""><button onclick="changeLeg2()">▶</button>`;
+        }
+
+        function changeLeg4() {
+            legs.innerHTML = `
+        <button onclick="changeLeg1()">◀</button><img src="bilder/legs1.png" alt=""><button onclick="changeLeg3()">▶</button>`;
+        }
+    </script>
+</body>
+
+</html>

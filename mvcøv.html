@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        // model
+        let randomItem = '';
+        let playerChoise = '';
+        let computerChoise = '';
+        let resultText = '';
+        let points = 0;
+
+        // view
+        updateView();
+        function updateView() {
+            app.innerHTML = /*HTML*/`
+            <div class="game">
+
+                <div onclick="chooseRockScissorsOrPaper('Stein')">Stein</div><br>
+
+                <div onclick="chooseRockScissorsOrPaper('Saks')">Saks</div><br>
+
+                <div onclick="chooseRockScissorsOrPaper('Papir')">Papir</div><br>
+                
+
+                <div class="mittValg">Ditt valg: ${playerChoise}</div><br>
+                <div class="dataValg">Dataens valg: ${computerChoise}</div><br>
+                <div class="resultat">${resultText}</div><br>
+                <div>Poeng: ${points}</div><br>
+                
+                <button onclick="reset()">Start på nytt</button>
+
+            </div>
+            `;
+        }
+
+        // controller
+        function chooseRockScissorsOrPaper(yourChoise) { //(yourChoise) kunne like gjerne hett: (stein,saks,papir)
+            randomItem = getRandomItem(); 
+            playerChoise = yourChoise; //da måtte jeg ha skreve (stein,saks,papir) her også
+            computerChoise = randomItem; //dataen sitt valg av stein, saks eller papir skal være tilfeldig, den refererer til linje 47, og lages på linje 53
+            getWinner();
+        }
+
+        function getRandomItem() {
+            let itemList = ['Stein', 'Saks', 'Papir'];
+            return itemList[Math.floor(Math.random() * itemList.length)]; //Velger tilfeldig stein, saks eller papir
+        }
+
+        function getWinner() {
+            if ((playerChoise === 'Stein' && computerChoise === 'Saks') ||  //Hvis spiller har valgt stein og data har valgt saks..
+                (playerChoise === 'Saks' && computerChoise === 'Papir') ||
+                (playerChoise === 'Papir' && computerChoise === 'Stein')) {
+                points++;                                                   //så skal poengene øke med 1 poeng for hver gang..
+                resultText = 'Du vant!😃';                                 //og teksten skal vise dette
+            } else if (playerChoise === computerChoise) {     //Hvis spiller og data har valgt samme (Stein, Stein)..
+                resultText = 'Uavgjort!😒';  //skal teksten vise dette
+            } else { // Hvis data har valgt f.eks papir og spiller har valgt stein..    
+                points--; //så taper man 1 poeng hver gang dette skjer..
+                resultText = 'Dataen vant!😋'; // og teksten skal vise dette
+                if(points < 0) { // Hvis poengene går under 0.. 
+                    points = 0; // skal poengene aldri vise mindre enn 0 (ikke -1)
+                }
+            }
+            updateView(); //oppdaterer det som skal vises på nettsida
+        }
+
+        function reset() { //Tømmer/blanker ut
+            randomItem = '';
+            playerChoise = '';
+            computerChoise = '';
+            resultText = '';
+            points = 0;
+            updateView();
+        }
+        
+    </script>
+    <style>
+        .game {
+            user-select: none;
+        }
+
+        .mittValg,
+        .dataValg {
+            background-color: green;
+            color: white;
+            border: 1px solid;
+            height: 25px;
+            width: 150px;
+            text-align: center;
+            padding-top: 5px;
+        }
+
+        .dataValg {
+            background-color: red;
+        }
+
+        .resultat {
+            font-size: x-large;
+        }
+    </style>
+</body>
+
+</html>

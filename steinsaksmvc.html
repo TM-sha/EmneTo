@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SteinSaksPapir</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        // model
+        let randomItem = '';
+        let points = 0;
+        let svar = '';
+        let player = '';
+        let computer = '';
+
+        // view
+        updateView();
+        function updateView() {
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <div class="game">
+                <div onclick="chooseItem('Stein')">Stein</div><br>
+                <div onclick="chooseItem('Saks')">Saks</div><br>
+                <div onclick="chooseItem('Papir')">Papir</div><br>
+
+                <div class="mittValg">Ditt valg: ${player}</div><br>
+                <div class="dataValg">Dataens valg: ${computer}</div><br>
+                <div class="resultat">${svar}</div><br>
+                <div class="poengInfo">Poeng: ${points}</div><br>
+                <button onclick="reset()">Start på nytt</button>
+            </div>
+            `;
+        }
+
+        // controller
+        function chooseItem(chosenItem) {
+            randomItem = getRandom();
+            player = chosenItem;
+            computer = randomItem;
+            getWinner();
+        }
+
+        function getRandom() {
+            let list = ['Stein', 'Saks', 'Papir'];
+            return list[Math.floor(Math.random() * list.length)];
+        }
+
+        function getWinner() {
+            if ((player === 'Stein' && computer === 'Saks') ||
+                (player === 'Saks' && computer === 'Papir') ||
+                (player === 'Papir' && computer === 'Stein')) {
+                points++;
+                svar = 'Du vant!😃';
+            }
+            else if (player === computer) {
+                svar = 'Uavgjort!✌️';
+            }
+
+            else {
+                points--;
+                svar = 'Maskinen vant!😒';
+                if (points < 0) { 
+                    points = 0; 
+                }
+            }
+            updateView();
+        }
+
+        function reset() {
+            randomItem = '';
+            points = 0;
+            svar = '';
+            player = '';
+            computer = '';
+            updateView();
+        }
+    </script>
+
+    <style>
+        .game {
+            user-select: none;
+        }
+
+        .mittValg,
+        .dataValg {
+            background-color: green;
+            color: white;
+            border: 1px solid;
+            height: 25px;
+            width: 150px;
+            text-align: center;
+            padding-top: 5px;
+        }
+
+        .dataValg {
+            background-color: red;
+        }
+
+        .resultat {
+            font-size: x-large;
+        }
+
+        .poengInfo {
+            color: blue;
+        }
+    </style>
+</body>
+
+</html>

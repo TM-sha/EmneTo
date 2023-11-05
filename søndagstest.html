@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        // model
+        let sporsmal = '';
+        let tekst = '';
+        let questionsAndAnswers = {
+            "Har du hatt en fin dag?": "Tommy: Jada, den var fin den.😊",
+            "Hva har du gjort i dag da?": "Tommy: Kodet en hel del🤥",
+            "Hva skal du i morgen?": "Tommy: I morgen er det tilbake på skolen.🙂",
+        }
+
+        // view
+        updateView();
+        function updateView() {
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <input id="inputField" type="text" placeholder="Skriv inn ditt spørsmål...">
+            <button onclick="sendQuestion()">Send inn</button>
+            <button onclick="reset()">Tøm</button><br><br>
+            <div class="divSpm">${sporsmal}</div>
+            <div class ="divTxt">${tekst}</div>
+            `;
+        }
+
+        // controller
+        function sendQuestion() {
+            const input = document.getElementById("inputField").value
+            if(input == '') return;
+            sporsmal = '&nbsp ' + 'Deg: ' + input + ' &nbsp'; //gir mellomrom 
+
+
+            let response = getAnswer(input);
+            tekst = '&nbsp ' + response + '&nbsp ';
+            updateView();
+        }
+
+        function reset() {
+            location.reload();
+        }
+
+        function getAnswer(input) {
+            if (input in questionsAndAnswers) {
+                return questionsAndAnswers[input];
+            }
+            else {
+                return "Tommy: Det aner jeg ikke, spør ChatGPT. 🙃";
+            }
+        }
+    </script>
+
+    <style>
+        .divSpm {
+            font-size: 22px;
+            background-color: rgb(27, 64, 145);
+            color: rgb(221, 221, 221);
+            width: fit-content;
+            border-radius: 20px;
+            padding-bottom: 5px;
+        }
+
+        .divTxt {
+            font-size: 22px;
+            background-color: rgb(85, 120, 197);
+            color: rgb(221, 221, 221);
+            width: fit-content;
+            border-radius: 20px;
+            padding-bottom: 5px;
+        }
+
+        button {
+            font-size: 15px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            background-color: rgb(102, 150, 113);
+
+        }
+        button:hover {
+            border: none;
+            background-color: rgb(195, 195, 195);
+        }
+    </style>
+</body>
+
+</html>

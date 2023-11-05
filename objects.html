@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="showInfo()">Klikk for info</button>
+    <div id="app"></div>
+
+    <script>
+        let person = {
+            firstName: 'Tommy',
+            lastName: 'Misje',
+            age: 36,
+            children: 3,
+            homeTown: 'Bergen',
+        }
+
+        function showInfo() {
+            document.getElementById("app").innerHTML =         
+             " Hei, jeg heter " + person.firstName + " " + person['lastName'] + " <br> "
+             + " Jeg er " + person.age + " år, har " + person.children + " barn, og bor i " 
+             + person.homeTown + ".";
+        }
+    </script>
+</body>
+</html>

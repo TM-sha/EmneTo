@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        let shoppingChart = [];
+        // model
+
+        // view
+        updateView();
+        function updateView() {
+            let HTML = ``;
+            HTML = /*HTML*/`
+            <input type="text" id="inputField">`;
+
+            HTML +=/*HTML*/ `<button onclick="addItem()">Legg til vare</button><br><br>
+           
+           <table>
+            <tr>
+                <th>Vare:</th>
+                <th>Slett</th>
+                <th>Bytt Navn</th>
+            </tr>`;
+           
+           for (let vare = 0; vare < shoppingChart.length; vare++) {
+            HTML +=/*HTML*/ `
+                    <tr>
+                        <td>${shoppingChart[vare]}</td>
+                        <td><button onclick="deleteItem(${vare})">Slett</button></td>
+                        <td><button onclick="changeName(${vare})">Bytt Navn</button></td>
+                    </tr>`;
+            }
+            
+            HTML += /*HTML*/ `</table>`;
+
+            document.getElementById('app').innerHTML = HTML;
+        }
+        
+
+        // controller
+        function addItem() {
+            let input = document.getElementById('inputField').value;
+            if(input == '') {
+                return;
+            }
+            shoppingChart.push(input);
+            updateView();
+        }
+
+        function deleteItem(vare) {
+            shoppingChart.splice(vare, 1);    
+            updateView(); 
+        }
+
+        function changeName(vare) {
+            let nyttNavn = document.getElementById('inputField').value;
+            if (nyttNavn == '') {   
+                return;
+            }
+            
+            shoppingChart[vare] = nyttNavn;
+            updateView();
+        }
+    </script>
+</body>
+
+</html>

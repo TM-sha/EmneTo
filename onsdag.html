@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    
+    <script>
+        // model
+        let liste = '';
+        let minDiv = '';
+        let divObjekt = '';
+
+        // view
+        updateView();
+        function updateView() {
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <h1>Skal vise en liste</h1>
+            <button onclick="visListe()">Vis frem listen (uten hjelpemidler)</button>
+            <div>${minDiv}</div><br>
+            <h1>Skal vise en objektliste</h1>
+            <button class="objekt" onclick="visObject()">Vis frem objektlisten <del>(uten hjelpemidler)</button>
+            <div>${divObjekt}</div>
+            `;
+        }
+
+        // controller
+        function visListe() 
+        {
+             liste = ['Truse', 'Boxer', 'Belte', 'Sokker', 'T-skjorte', 'Bukse', 'Genser', 'Caps'];
+
+           for(let i = 0; i < liste.length; i++)
+            {
+                minDiv += ' <li> ' + 'På runde: ' + [i] + ' i loopen, så har vi funnet ' + liste[i] + ' </li> ';
+            }
+            updateView();
+        }
+
+        function visObject()
+        {
+            const person = 
+            { 
+              Navn: 'Navn: Tommy Misje',
+              Adresse: 'Adresse: Myrdalen 329',
+              Sivilstatus: 'Sivilstatus: Samboer',
+              Barn: 'Barn: 3',
+              Yrke: 'Yrke: Student',
+            };
+
+            let text = '';
+            for(let info in person) 
+            {
+                text += person[info] + '<br>';
+            }
+            divObjekt = text;
+            updateView();
+        }
+    </script>
+</body>
+</html>

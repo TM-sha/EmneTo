@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+            background-color: rgb(92, 92, 176);
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Orakelet</h2>
+    <input type="text" placeholder="Skriv inn spørsmålet.." oninput="checkInput()">
+    <button onclick="askTheOracle()" id="askButton" disabled>Still spørsmål</button><br>
+    <h3 id="oracleAnswer"></h3>
+
+    <script>
+        let showAnswer = document.getElementById("oracleAnswer");
+        let inputField = document.querySelector('input');
+        let askButton = document.getElementById('askButton');
+
+        function checkInput() {
+            if (inputField.value.trim() === '') {
+                askButton.disabled = true;
+            } else {
+                askButton.disabled = false;
+            }
+        }
+
+        function askTheOracle() {
+            if (inputField.value.trim() === '') {
+                return; // Hindrer å stille spørsmål uten innhold
+            }
+
+            const val = inputField.value;
+            const answer = getAnswer();
+            showAnswer.innerHTML = answer;
+            inputField.value = ''; // Tøm input-feltet
+            askButton.disabled = true; // Deaktiver "Still spørsmål"-knappen
+
+            setTimeout(() => {
+                showAnswer.innerHTML = '';
+                askButton.disabled = false; // Aktiver "Still spørsmål"-knappen igjen
+            }, 3000);
+        }
+
+        function getAnswer() {
+            let answerList = ['Det er ikke så vanskelig', 'Mmmm, ja, men det er ikke så viktig å kunne',
+                'Det må du nesten spørre Eskil om', 'Det vet jeg faktisk ikke', '...(pinlig stillhet)'];
+            return answerList[Math.floor(Math.random() * answerList.length)];
+        }
+    </script>
+</body>
+
+
+</html>

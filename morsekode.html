@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        // model
+        const alphabet = "abcdefghijklmnopqrstuvwxyz æøå";
+        const morseCodeArray = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--', '-.', '---', '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..', ' ', '·−·−', '−−−·', '·−−·−'];
+        let inputValue = '';
+
+        // view
+        updateView();
+        function updateView() {
+            app.innerHTML = /*HTML*/`
+            <input id="myInput" type="text" onchange="saveText(this.value); updateView()">
+            <button onclick="updateView()" disabled>Få morsekode</button><br><br>
+            <div>Morsekode: ${generateMorsecode()}</div>
+            `;
+        }
+
+        // controller
+        function generateMorsecode() {
+            let input = inputValue;
+            let resultat = '';
+            
+            for(let i = 0; i < input.length; i++) {
+                let alphabetIndex = alphabet.indexOf(input[i].toLowerCase()); //finner fram index nummer til bokstaven i alphabet, og converter til lavere 
+                resultat += morseCodeArray[alphabetIndex];
+            }
+
+            return resultat;
+        }
+        
+        function saveText(value) {
+            inputValue = value;
+        }
+
+        
+
+    </script>
+</body>
+
+</html>

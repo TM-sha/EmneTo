@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inputField" placeholder="Skriv her for å printe ut text">
+    <button onclick="send()">Send</button><br><br>
+    <div id="svar"></div><br>
+    <input type="text" id="inputText" placeholder="Få svar på spørsmål">
+    <button onclick="askQuestion()">Få svar</button><br><br>
+    <div id="showResponse"></div>
+
+
+    <script>
+
+        function send() {
+            const value = document.getElementById("inputField").value;
+            const answer = document.getElementById("svar");
+            answer.innerHTML = value;
+        }
+
+
+
+
+        function askQuestion() {
+            let question = document.getElementById("inputText").value;
+            let response = getResponse(question);   
+            const showResponse = document.getElementById("showResponse");
+            showResponse.innerHTML = response;
+        }
+
+
+        function getResponse(question) {
+            let list = {
+                "Hvordan går det?": "Det går fint.😊",
+                "Har du lært noe nytt?": "Jada, litt.🤔",
+                "Går det bedre med kodingen?": "Sånn passe.😒",
+            }
+            if(question in list) {
+                return list[question];
+            } else {
+                return "Beklager, jeg vet ikke svaret på dette spørsmålet.";
+            }
+        }
+    </script>
+</body>
+</html>

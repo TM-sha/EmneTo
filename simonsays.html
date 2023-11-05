@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Says</title>
+    <style>
+        .game {
+            margin-left: 50px;
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gamediv {
+            user-select: none;
+            display: grid;
+            grid-template: 1fr 1fr / 1fr 1fr;
+            gap: 5%;
+        }
+
+        .gamediv > div {
+            height: 150px;
+            width: 150px;
+            border-radius: 20px;
+        }
+        #score {
+            text-align: center;
+        }
+
+        
+        .redDim {
+            background-color: rgb(255, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        .redDim:active{
+            background-color: rgb(255, 0, 0, 1);
+            
+        }
+        .redBright {
+            background-color: rgb(255, 0, 0, 1);
+            cursor: not-allowed;
+        }
+
+
+        .blueDim {
+            background-color: rgba(0, 0, 255, 0.2);
+            cursor: pointer;
+        }
+        .blueDim:active{
+            background-color: rgba(0, 0, 255, 1);
+        }
+        .blueBright {
+            background-color: rgba(0, 0, 255, 1);
+            cursor: not-allowed;
+        }
+
+
+        .greenDim {
+            background-color: rgba(0, 128, 0, 0.2);
+            cursor: pointer;
+        }
+        .greenDim:active{
+            background-color: rgba(0, 128, 0, 1);
+        }
+        .greenBright {
+            background-color: rgba(0, 128, 0, 1);
+            cursor: not-allowed;
+        }
+
+
+        .yellowDim {
+            background-color: rgb(255, 255, 0, 0.2);
+            cursor: pointer;
+        }
+        .yellowDim:active{
+            background-color: rgb(255, 255, 0, 1);
+        }
+        .yellowBright {
+            background-color: rgb(255, 255, 0, 1);
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    
+    <script>
+        // model
+        let colorList = ['red', 'blue', 'green', 'yellow']; //tilgjengelige farger
+        let arrangement = []; //Hva Simon sier
+        let answer = []; //bruker input
+
+        let redColor = 'redDim';
+        let blueColor = 'blueDim';
+        let greenColor = 'greenDim';
+        let yellowcolor = 'yellowDim';
+
+        let blinkDelay = 400; //millisekunder
+
+        // view
+        updateView();
+        function updateView() {
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <h1 id="score"></h1>
+            <div class="game">
+                <div class="gamediv">
+                    <div id="red" class="${redColor}" onclick="userInput(this,'red')"></div>
+                    <div id="blue" class="${blueColor}" onclick="userInput(this,'blue')"></div>
+                    <div id="green" class="${greenColor}" onclick="userInput(this,'green')"></div>
+                    <div id="yellow" class="${yellowcolor}" onclick="userInput(this, 'yellow')"></div>
+                </div>
+            </div>
+            `;
+        }
+        // controller
+        function init(){
+            arrangement = [];
+            for (let i = 0; i < 3; i++) {
+                arrangement.push(colorList[Math.floor(Math.random() * colorList.length)])
+            }
+            simonSays()
+        }
+
+        async function simonSays(){
+            document.getElementById("score").innerText = arrangement.length;
+            for (let i = 0; i < arrangement.length; i++) {
+                let currentColor = document.getElementById(arrangement[i]);
+                bright(currentColor, i);
+                await delay(blinkDelay);
+                dim(currentColor, i);
+                await delay(blinkDelay);
+            }
+        }
+
+        function bright(currentColor, i){
+            currentColor.classList.remove(arrangement[i] + "Dim");
+            currentColor.classList.add(arrangement[i] + "Bright");
+        }
+
+        function dim(currentColor, i){
+            currentColor.classList.remove(arrangement[i] + "Bright");
+            currentColor.classList.add(arrangement[i] + "Dim");
+        }
+
+        function delay(time) {
+            return new Promise(resolve => setTimeout(resolve, time));
+        }
+
+        function userInput(element, color) {
+            answer.push(color);
+            if (answer.length == arrangement.length){
+                for (let i = 0; i < answer.length; i++) {
+                    if (answer[i] != arrangement[i]){
+                        alert("Du trykka feil...");
+                        init();
+                    }
+                }
+                answer = [];
+                setTimeout(nextRound, 1000);
+            }
+        }
+
+        function nextRound(){
+            arrangement.push(colorList[Math.floor(Math.random() * colorList.length)])
+            simonSays();
+        }
+
+        init()
+    </script>
+</body>
+</html>

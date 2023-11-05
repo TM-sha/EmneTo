@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    
+    <script>
+        // model
+        let names = '';
+        let favorites = '';
+        let arrayList = ['Tommy', 'Inger', 'Lucas', 'Markus', 'Robin'];
+        let objektList = '{"favoritter":[' + 
+        '{"favorittMat":"Biff", "favorittDrikke":"Vann" },' +
+        '{"favorittMat":"Taco", "favorittDrikke":"agurkvann" },' +
+        '{"favorittMat":"Pølsestapp", "favorittDrikke":"sjokolademelk" }]}';
+
+        // view
+        updateView();
+        function updateView() {
+            app.innerHTML = /*HTML*/`
+            <button onclick="showList()">Vis Navn</button>
+            <button onclick="showObject()">Vis Favoritter</button>
+            <div>${names}</div><br>
+            <div>${favorites}</div>
+            `;
+        }
+
+        // controller
+        function showList() {
+            names = '';
+            arrayList.push('Ukjent kjønn og navn');
+            for (let i = 0; i < 6; i++) {
+                names += '<li>' + arrayList[i];
+            }
+            updateView();
+        }
+
+        function showObject() {
+            const obj = JSON.parse(objektList);
+            favorites = 
+            arrayList[1] + ' sin favorittmat er: ' + obj.favoritter[1].favorittMat + "<br>" +
+            arrayList[1] + ' sin favorittdrikke er: '+ obj.favoritter[1].favorittDrikke;
+            updateView();
+        }
+
+        function showObjectStianVersjon(navn) {
+            const obj = JSON.parse(objektList); //JavaScriptObjectNotation
+            let index = arrayList.indexOf(navn);
+            favorites = 
+            arrayList[index] + ' sin favorittmat er: ' + obj.favoritter[1].favorittMat + "<br>" +
+            arrayList[index] + ' sin favorittdrikke er: '+ obj.favoritter[1].favorittDrikke;
+            updateView();
+        }
+        // function showObject() {
+        //     let txt = '';
+        //     for (let fav in objektList) {
+        //         txt = 'Tommy sin farge er: ' + objektList[fav] + '<br>';
+        //     }
+        //     favorites = txt;
+        //     updateView();
+        // }
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stein, saks, papir</title>
+    <style>
+        .game {
+            user-select: none;
+        }
+        #mittValg,
+        #dataValg {
+            background-color: green;
+            color: white;
+            border: 1px solid;
+            height: 25px;
+            width: 150px;
+            text-align: center;
+            padding-top: 5px;
+        }
+
+        #dataValg {
+            background-color: red;
+        }
+
+        #resultat {
+            font-size: x-large;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="game">
+        <div onclick="chooseItem('Stein')">Stein</div><br>
+        <div onclick="chooseItem('Saks')">Saks</div><br>
+        <div onclick="chooseItem('Papir')">Papir</div><br>
+        <div id="mittValg"></div><br>
+        <div id="dataValg"></div><br>
+        <div id="resultat"></div><br>
+        <button onclick="reset()">Start på nytt</button>
+    </div>
+
+    <script>
+        let randomItem = '';
+        function chooseItem(text) {
+            randomItem = getRandom();
+            document.getElementById("mittValg").innerHTML = 'Du valgte: ' + text;
+            document.getElementById("dataValg").innerHTML = 'Maskinens valg: ' + randomItem;
+            const resultat = getWinner(text, randomItem);
+            document.getElementById("resultat").innerHTML = resultat;
+        }
+
+        function getRandom() {
+            let list = ['Stein', 'Saks', 'Papir'];
+            return list[Math.floor(Math.random() * list.length)];
+        }
+
+        function getWinner(player, computer) {
+            if ((player === 'Stein' && computer === 'Saks') ||
+                (player === 'Saks' && computer === 'Papir') ||
+                (player === 'Papir' && computer === 'Stein')) {
+                return 'Du vant!😃';
+            } else if (player === computer) {
+                return 'Uavgjort!✌️';
+            } else {
+                return 'Maskinen vant!😒';
+            }
+        }
+
+        function reset() {
+            location.reload();
+        }
+    </script>
+</body>
+
+</html>
