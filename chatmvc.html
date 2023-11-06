@@ -12,13 +12,14 @@
 
     <script>
         // model
-        let answer = '';
-        let sporsmalOgSvar = {
+        let answerDiv = '';
+        let question = '';
+        let questionsAndAnswers = {
             "Hva er din favorittfarge?": "Min favorittfarge er blå.",
-            "Hva heter du?": "Jeg er en datamaskin, så jeg har ikke et navn.",
-            "Hva liker du å gjøre på fritiden?": "Jeg liker å hjelpe uvitende, som deg.",
-            "Hvor gammel er du?": "Jeg har ingen alder, jeg er en datamaskin.",
-            "Hvordan har du det?": "Jeg er en datamaskin, men jeg har det veldig fint, takk.",
+            "Hva heter du?": "Jeg er en datamaskin, så jeg har ikke et navn.🙄",
+            "Hva liker du å gjøre på fritiden?": "Jeg liker å hjelpe uvitende, som deg.😋",
+            "Hvor gammel er du?": "Jeg har ingen alder, jeg er en datamaskin.🙃",
+            "Hvordan har du det?": "Jeg er en datamaskin, men jeg har det veldig fint, takk.🙃",
         };
 
         // view
@@ -26,42 +27,60 @@
         function updateView() {
             document.getElementById('app').innerHTML = /*HTML*/`
             <h2>Spør chatboten:</h2>
-            <input type="text" id="sporsmalInput" placeholder="Skriv inn ditt spørsmål her..">
-            <button onclick="stillSporsmal()">Still spørsmål</button>
+            <input type = "text" onkeyup="btnDisable()" onchange = "question = this.value" placeholder = "Skriv inn ditt spørsmål her..">
+            <button id = "btn" onclick = "askQuestion()" disabled>Still spørsmål</button>
             <h2>Chatbot:</h2>
-            <div>${answer}</div>
+            <div>${answerDiv}</div>
             `;
         }
 
-        //function visSvar(svar) {
-        //let svarDiv = document.getElementById("svarDiv");
-        //svarDiv.innerHTML = "Svar: " + svar;
-        
-
-        function visSvar(svar) {
-            answer = "Chatboten skriver...";
+        function showAnswer(answer) {
+            answerDiv = "Chatboten skriver...";
             updateView();
 
-            setTimeout(function () {
-                answer = "Svar: " + svar;
+        const myTimeout = setTimeout(() => {
+                answerDiv = `Svar: ${answer}`;
                 updateView();
-            }, 2000);
+
+                // Setter opp en timeout for å vise/tømme svaret etter en stund
+                setTimeout(() => {
+                    clear();
+                }, 3500); // Tøm etter 3.5 sec
+            }, 2000); //Vis etter 2 sec
+        } 
+
+        const myTimer = setTimeout(clear, 500);
+        function clear() {
+            answerDiv = '';
+            updateView();
         }
 
         // controller
-        function stillSporsmal() {
-            const sporsmal = document.getElementById("sporsmalInput").value;
-            let svar = hentSvar(sporsmal);
-            visSvar(svar);
+
+        function btnDisable() {
+            if (question.value === '') {
+                document.getElementById("btn").disabled = true;
+            }else
+            {
+                document.getElementById("btn").disabled = false;
+            }
         }
 
-        function hentSvar(sporsmal) {
-            if (sporsmal in sporsmalOgSvar) {
-                return sporsmalOgSvar[sporsmal];
+
+        function askQuestion() {
+            let answer = getAnswer(question);
+            showAnswer(answer);
+        }
+
+
+        function getAnswer(question) {
+            if (question in questionsAndAnswers) {
+                return questionsAndAnswers[question];
             } else {
                 return "Beklager, jeg vet ikke svaret på dette spørsmålet.";
             }
         }
+        
 
     </script>
 </body>
