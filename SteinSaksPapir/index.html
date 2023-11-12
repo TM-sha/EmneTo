@@ -4,7 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SteinSaksPapir</title>
+    <title>Stein-Saks-Papir</title>
+    <style>
+        .game {
+            user-select: none;
+        }
+
+        .rockscissorspaper {
+            cursor: pointer;
+            width: 35px;
+        }
+        .rock {
+            background-color: grey;
+            height: 20px;
+        }
+        .rock:hover {
+            background-color: red;
+        }
+
+        .scissors {
+            background-color: black;
+            color: white;
+            height: 20px;
+        }
+        .scissors:hover {
+            background-color: green;
+        }
+
+        .paper {
+            background-color: beige;
+            height: 20px;
+        }
+        .paper:hover {
+            background-color: blue;
+        }
+
+        .mittValg,
+        .dataValg {
+            background-color: green;
+            color: white;
+            border: 1px solid;
+            height: 25px;
+            width: 150px;
+            text-align: center;
+            padding-top: 5px;
+        }
+
+        .dataValg {
+            background-color: red;
+        }
+
+        .resultat {
+            font-size: x-large;
+        }
+
+        .poengInfo {
+            color: blue;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,15 +80,23 @@
         function updateView() {
             document.getElementById('app').innerHTML = /*HTML*/`
             <div class="game">
-                <div onclick="chooseItem('Stein')">Stein</div><br>
-                <div onclick="chooseItem('Saks')">Saks</div><br>
-                <div onclick="chooseItem('Papir')">Papir</div><br>
+                <div class="rockscissorspaper">
+                    <div class="rock">
+                        <div onclick="chooseItem('Stein')">Stein</div>
+                    </div>
+                    <div class="scissors">    
+                        <div onclick="chooseItem('Saks')">Saks</div>
+                    </div>
+                    <div class="paper">    
+                        <div onclick="chooseItem('Papir')">Papir</div>
+                    </div>    
+                </div>    
 
                 <div class="mittValg">Ditt valg: ${player}</div><br>
                 <div class="dataValg">Dataens valg: ${computer}</div><br>
                 <div class="resultat">${svar}</div><br>
                 <div class="poengInfo">Poeng: ${points}</div><br>
-                <button onclick="reset()">Start på nytt</button>
+                <button onclick="reset()" style="cursor: pointer">Start på nytt</button>
             </div>
             `;
         }
@@ -79,35 +144,6 @@
             updateView();
         }
     </script>
-
-    <style>
-        .game {
-            user-select: none;
-        }
-
-        .mittValg,
-        .dataValg {
-            background-color: green;
-            color: white;
-            border: 1px solid;
-            height: 25px;
-            width: 150px;
-            text-align: center;
-            padding-top: 5px;
-        }
-
-        .dataValg {
-            background-color: red;
-        }
-
-        .resultat {
-            font-size: x-large;
-        }
-
-        .poengInfo {
-            color: blue;
-        }
-    </style>
 </body>
 
 </html>
