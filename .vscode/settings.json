@@ -1,3 +1,4 @@
 {
-    "livePreview.defaultPreviewPath": "/steinsaksmvc.html"
+    "livePreview.defaultPreviewPath": "/steinsaksmvc.html",
+    "liveServer.settings.port": 5501
 }
