@@ -20,8 +20,8 @@
         updateView();
         function updateView() {
             app.innerHTML = /*HTML*/`
-            <input id="myInput" type="text" onchange="saveText(this.value); updateView()">
-            <button onclick="updateView()" disabled>Få morsekode</button><br><br>
+            <input placeholder="Trykk Enter" type="text" onchange="saveText(this.value); updateView()">
+            <button onclick="updateView()" disabled>Få morsekode</button>
             <div>Morsekode: ${generateMorsecode()}</div>
             `;
         }
